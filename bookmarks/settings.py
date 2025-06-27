@@ -1,3 +1,4 @@
+from decouple import config, Csv
 """
 Django settings for bookmarks project.
 
@@ -20,13 +21,14 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "*ndk(!52823iyjfi&%@3!wjgiez^_9z257o_d@p%1@wj&=z*(z"
+SECRET_KEY = config("SECRET_KEY")
+SECRET_KEY = config("SECRET_KEY")
+DEBUG = config("DEBUG", default=False, cast=bool)
 
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+ALLOWED_HOSTS = config("ALLOWED_HOSTS", cast=Csv())
 
-# ALLOWED_HOSTS = []
-ALLOWED_HOSTS = ["mysite.com", "localhost", "127.0.0.1", "https://127.0.0.1:8443"]
+SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = config("SOCIAL_AUTH_GOOGLE_OAUTH2_KEY")
+SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
 
 
 # Application definition
@@ -74,6 +76,7 @@ TEMPLATES = [
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "account.authentication.EmailAuthBackend",
+    "social_core.backends.google.GoogleOAuth2",
 ]
 WSGI_APPLICATION = "bookmarks.wsgi.application"
 
@@ -136,3 +139,4 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media/")
 
 # DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+SOCIAL_AUTH_URL_NAMESPACE = "social"

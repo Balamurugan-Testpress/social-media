@@ -1,4 +1,5 @@
-from decouple import config, Csv
+from decouple import Csv, config
+
 """
 Django settings for bookmarks project.
 
@@ -35,6 +36,7 @@ SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = config("SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET")
 
 INSTALLED_APPS = [
     "account.apps.AccountConfig",
+    "images.apps.ImagesConfig",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
